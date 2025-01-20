@@ -3,9 +3,9 @@
 Contributors: acmethemes
 Tags: blog, news, e-commerce, one-column, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-menu, custom-logo, editor-style, footer-widgets, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, wide-blocks
 Requires at least: 4.8
-Tested up to: 6.5
+Tested up to: 6.7
 Requires PHP: 5.6.20
-Stable tag: 3.0.7
+Stable tag: 3.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,10 @@ The exceptions to license are as follows:
 * no-image-660-365.png self created GPLv2
 
 == Change log ==
+
+= 3.0.8 - Jan 20 2025 =
+* Added: Enhanced support for the latest WordPress version.
+* Updated: Improved CSS compatibility.
 
 = 3.0.7 - June 05 2024 =
 * Updated: WordPress latest compatibility
