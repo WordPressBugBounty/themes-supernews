@@ -7,24 +7,25 @@
  * @package Acme Themes
  * @subpackage SuperNews
  */
-global $supernews_customizer_all_values;
-$supernews_blog_no_image = '';
-if( !has_post_thumbnail() ) {
+$supernews_customizer_all_values = supernews_get_theme_options();
+$supernews_blog_no_image         = '';
+if ( ! has_post_thumbnail() ) {
 	$supernews_blog_no_image = 'blog-no-image';
 }
 $supernews_single_image_layout = $supernews_customizer_all_values['supernews-single-image-layout'];
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( $supernews_blog_no_image ); ?>>
 	<!--post thumbnal options-->
-	<?php if( has_post_thumbnail( ) && 'disable' != $supernews_single_image_layout ) {
+	<?php
+	if ( has_post_thumbnail() && 'disable' != $supernews_single_image_layout ) {
 		?>
 		<div class="post-thumb">
 			<?php
 			the_post_thumbnail( $supernews_single_image_layout );
-            supernews_list_category();
-            ?>
+			supernews_list_category();
+			?>
 		</div><!-- .post-thumb-->
-	<?php
+		<?php
 	}
 	?>
 	<div class="post-content">
@@ -39,11 +40,13 @@ $supernews_single_image_layout = $supernews_customizer_all_values['supernews-sin
 		</header><!-- .entry-header -->
 		<div class="entry-content">
 			<?php
-            the_content();
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'supernews' ),
-				'after'  => '</div>',
-			) );
+			the_content();
+			wp_link_pages(
+				array(
+					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'supernews' ),
+					'after'  => '</div>',
+				)
+			);
 			?>
 		</div><!-- .entry-content -->
 	</div>

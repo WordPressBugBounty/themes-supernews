@@ -6,19 +6,18 @@
  *
  * @param null
  * @return null
- *
  */
 if ( ! function_exists( 'supernews_dynamic_css' ) ) :
 
-    function supernews_dynamic_css() {
+	function supernews_dynamic_css() {
 
-        global $supernews_customizer_all_values;
-        /*Color options */
-        $supernews_primary_color = esc_attr( $supernews_customizer_all_values['supernews-primary-color'] );
+		$supernews_customizer_all_values = supernews_get_theme_options();
+		/*Color options */
+		$supernews_primary_color = esc_attr( $supernews_customizer_all_values['supernews-primary-color'] );
 
-        $custom_css = '';
-        /*background*/
-        $custom_css .= "mark,
+		$custom_css = '';
+		/*background*/
+		$custom_css .= "mark,
             .comment-form .form-submit input,
             .read-more,
             .header-latest-posts .bn-title,
@@ -34,8 +33,8 @@ if ( ! function_exists( 'supernews_dynamic_css' ) ) :
             background: {$supernews_primary_color};
             }";
 
-        /*color*/
-        $custom_css .= "
+		/*color*/
+		$custom_css .= "
              a:hover,
             .screen-reader-text:focus,
             .bn-content a:hover,
@@ -68,8 +67,8 @@ if ( ! function_exists( 'supernews_dynamic_css' ) ) :
                 color: {$supernews_primary_color};
             }";
 
-        /*border*/
-        $custom_css .= "
+		/*border*/
+		$custom_css .= "
             .widget_search input#s,
             .tagcloud a{
                 border: 1px solid {$supernews_primary_color};
@@ -98,8 +97,8 @@ if ( ! function_exists( 'supernews_dynamic_css' ) ) :
                 border-left: medium none;
             }";
 
-        /*media width*/
-        $custom_css .= "
+		/*media width*/
+		$custom_css .= "
         @media screen and (max-width:992px){
                 .slicknav_btn{
                     border: 1px solid {$supernews_primary_color};
@@ -117,84 +116,83 @@ if ( ! function_exists( 'supernews_dynamic_css' ) ) :
                 }
             }";
 
-	    /*category color*/
-	    /*category color options*/
-	    $args = array(
-		    'orderby' => 'id',
-		    'hide_empty' => 0
-	    );
-	    $categories = get_categories( $args );
-	    $wp_category_list = array();
-	    $i = 1;
-	    foreach ($categories as $category_list ) {
-		    $wp_category_list[$category_list->cat_ID] = $category_list->cat_name;
+		/*
+		category color*/
+		/*category color options*/
+		$args             = array(
+			'orderby'    => 'id',
+			'hide_empty' => 0,
+		);
+		$categories       = get_categories( $args );
+		$wp_category_list = array();
+		$i                = 1;
+		foreach ( $categories as $category_list ) {
+			$wp_category_list[ $category_list->cat_ID ] = $category_list->cat_name;
 
-		    $cat_color = 'cat-'.esc_attr( get_cat_id($wp_category_list[$category_list->cat_ID]) );
-		    $cat_hover_color = 'cat-hover-'.esc_attr( get_cat_id($wp_category_list[$category_list->cat_ID]) );
+			$cat_color       = 'cat-' . esc_attr( get_cat_id( $wp_category_list[ $category_list->cat_ID ] ) );
+			$cat_hover_color = 'cat-hover-' . esc_attr( get_cat_id( $wp_category_list[ $category_list->cat_ID ] ) );
 
-		    if( isset( $supernews_customizer_all_values[$cat_color] )){
-			    $cat_color = $supernews_customizer_all_values[$cat_color];
-			    if( !empty( $cat_color )){
-				    $custom_css .= "
+			if ( isset( $supernews_customizer_all_values[ $cat_color ] ) ) {
+				$cat_color = $supernews_customizer_all_values[ $cat_color ];
+				if ( ! empty( $cat_color ) ) {
+					$custom_css .= "
                     .cat-links .at-cat-item-{$category_list->cat_ID}{
                     background: {$cat_color}!important;
                     color : #fff!important;
                     }
                     ";
 
-				    /*widget tittle*/
-				    $custom_css .= "
+					/*widget tittle*/
+					$custom_css .= "
                     .at-cat-color-wrap-{$category_list->cat_ID} .widget-title::before,
                     body.category-{$category_list->cat_ID} .page-header .page-title::before
                     {
                      border-bottom: 3px solid {$cat_color};
                     }
                     ";
-				    $custom_css .= "
+					$custom_css .= "
                     .at-cat-color-wrap-{$category_list->cat_ID} .widget-title,
                      body.category-{$category_list->cat_ID} .page-header .page-title
                     {
                      border-bottom: 1px solid {$cat_color};
                     }";
-			    }
-		    }
-		    else{
-			    $custom_css .= "
+				}
+			} else {
+				$custom_css .= "
                     .cat-links .at-cat-item-{$category_list->cat_ID}{
                     background: {$supernews_primary_color}!important;
                     color : #fff!important;
                     }
                     ";
-		    }
-		    if( isset( $supernews_customizer_all_values[$cat_hover_color] )){
-			    $cat_hover_color = $supernews_customizer_all_values[$cat_hover_color];
-			    if( !empty( $cat_hover_color )){
-				    $custom_css .= "
+			}
+			if ( isset( $supernews_customizer_all_values[ $cat_hover_color ] ) ) {
+				$cat_hover_color = $supernews_customizer_all_values[ $cat_hover_color ];
+				if ( ! empty( $cat_hover_color ) ) {
+					$custom_css .= "
                     .cat-links .at-cat-item-{$category_list->cat_ID}:hover{
                     background: {$cat_hover_color}!important;
                     color : #fff!important;
                     }
                     ";
-			    }
-		    }
-		    else{
-			    $custom_css .= "
+				}
+			} else {
+				$custom_css .= "
                     .cat-links .at-cat-item-{$category_list->cat_ID}:hover{
                     background: #2d2d2d!important;
                     color : #fff!important;
                     }
                     ";
-		    }
-		    $i++;
-	    }
-	    /*category color end*/
+			}
+			++$i;
+		}
+		/*category color end*/
 
-        /*custom css*/
-        $supernews_custom_css = wp_strip_all_tags ( $supernews_customizer_all_values['supernews-custom-css'] );
-        if ( ! empty( $supernews_custom_css ) ) {
-            $custom_css .= $supernews_custom_css;
-        }
-        wp_add_inline_style( 'supernews-style', $custom_css );
-    }
+		/*custom css*/
+		$supernews_custom_css = wp_strip_all_tags( $supernews_customizer_all_values['supernews-custom-css'] );
+		if ( ! empty( $supernews_custom_css ) ) {
+			$custom_css .= $supernews_custom_css;
+		}
+		wp_add_inline_style( 'supernews-style', $custom_css );
+	}
 endif;
 add_action( 'wp_enqueue_scripts', 'supernews_dynamic_css', 99 );
